@@ -44,13 +44,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===== Intersection Observer for Animations =====
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
+        rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('aos-animate');
+                entry.target.classList.add('active');
                 
                 // Trigger counter animation for result stats
                 if (entry.target.classList.contains('result-card')) {
@@ -60,6 +60,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
 
+    document.querySelectorAll('.reveal').forEach(el => {
+        observer.observe(el);
+    });
+    
+    // Also observe elements with data-aos for backwards compatibility
     document.querySelectorAll('[data-aos]').forEach(el => {
         observer.observe(el);
     });
